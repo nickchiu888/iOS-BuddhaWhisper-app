@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>付款未完成 — Buddha Whisper</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#faf8f5; --surface:#fff; --accent:#8E44AD; --text:#2c2c2c; --muted:#888; --border:#e8e0d5; --danger:#dc2626; }
+    body { background:var(--bg); color:var(--text); font-family:-apple-system,"PingFang TC",sans-serif; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:3rem 2.5rem; text-align:center; max-width:400px; width:100%; box-shadow:0 16px 48px rgba(0,0,0,0.07); }
+    .icon { width:72px; height:72px; border-radius:50%; background:rgba(220,38,38,0.08); border:2px solid var(--danger); display:flex; align-items:center; justify-content:center; font-size:2rem; margin:0 auto 1.5rem; }
+    h1 { font-size:1.5rem; font-weight:800; margin-bottom:0.5rem; }
+    p { color:var(--muted); font-size:0.92rem; margin-bottom:2rem; }
+    .btn { display:inline-block; background:var(--accent); color:#fff; padding:0.75rem 2rem; border-radius:12px; font-weight:700; font-size:0.95rem; text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">❌</div>
+    <h1>付款未完成</h1>
+    <p>交易未成功或已取消，<br/>訂閱尚未啟用，請重新嘗試。</p>
+    <a href="index.html#pricing" class="btn">重新訂閱</a>
+  </div>
+</body>
+</html>

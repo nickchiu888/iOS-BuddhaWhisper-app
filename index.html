@@ -1,39 +1,317 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buddha Whisper - Official Website</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 40px 20px; text-align: center; }
-        h1 { color: #8E44AD; } /* 佛法主題改用紫色系較為莊嚴 */
-        .container { border-bottom: 1px solid #eee; padding-bottom: 30px; margin-bottom: 30px; }
-        .contact-btn { display: inline-block; background: #8E44AD; color: white; padding: 12px 25px; text-decoration: none; border-radius: 8px; margin-top: 20px; font-weight: bold; }
-        .footer { margin-top: 50px; font-size: 0.9em; color: #888; }
-        .lang-section { margin-bottom: 40px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buddha Whisper — 每日佛法智慧 iOS App</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #faf8f5;
+      --surface: #ffffff;
+      --card: #f5f0ea;
+      --accent: #8E44AD;
+      --accent2: #c0392b;
+      --gold: #c8a84b;
+      --text: #2c2c2c;
+      --muted: #888;
+      --border: #e8e0d5;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "SF Pro Display", "PingFang TC", "Noto Sans TC", sans-serif;
+      line-height: 1.7;
+    }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2rem;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 1.1rem; font-weight: 700; color: var(--accent);
+      text-decoration: none;
+    }
+    .logo-icon { font-size: 1.5rem; }
+    nav .nav-links { display: flex; gap: 1.5rem; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.88rem; }
+    nav a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      background: linear-gradient(160deg, #f9f0ff 0%, #faf8f5 60%);
+      border-bottom: 1px solid var(--border);
+    }
+    .app-icon {
+      width: 96px; height: 96px; border-radius: 22px;
+      background: linear-gradient(135deg, var(--accent), #6c3483);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem; margin: 0 auto 1.5rem;
+      box-shadow: 0 8px 32px rgba(142,68,173,0.25);
+    }
+    .badge-row { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .badge {
+      display: inline-block;
+      background: rgba(142,68,173,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(142,68,173,0.2);
+      border-radius: 999px;
+      padding: 0.25rem 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 2rem;
+    }
+    .btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.75rem 2rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+    .btn-secondary {
+      background: var(--card);
+      color: var(--text);
+      padding: 0.75rem 2rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+    }
+
+    /* ── Sections ── */
+    section { padding: 4rem 1.5rem; max-width: 880px; margin: 0 auto; }
+    .section-label {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      text-align: center;
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Features ── */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.07); transform: translateY(-3px); }
+    .feature-icon { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .feature-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .feature-card p { color: var(--muted); font-size: 0.84rem; }
+
+    /* ── Pricing / 訂閱 ── */
+    .pricing-wrap { background: var(--card); padding: 4rem 1.5rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; max-width: 680px; margin: 0 auto; }
+    .price-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.popular { border-color: var(--accent); }
+    .popular-tag {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--accent); color: #fff;
+      font-size: 0.7rem; font-weight: 700;
+      padding: 0.2rem 0.8rem; border-radius: 999px;
+    }
+    .plan-name { font-size: 0.85rem; font-weight: 700; color: var(--muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    .plan-price { font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1; }
+    .plan-price span { font-size: 0.85rem; font-weight: 500; color: var(--muted); }
+    .plan-period { color: var(--muted); font-size: 0.8rem; margin: 0.3rem 0 1rem; }
+    .plan-features { list-style: none; margin-bottom: 1.25rem; }
+    .plan-features li { font-size: 0.83rem; color: var(--muted); padding: 0.2rem 0; }
+    .plan-features li::before { content: "✓  "; color: var(--accent); font-weight: 700; }
+    .plan-btn {
+      display: block; background: var(--accent); color: #fff;
+      padding: 0.65rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.88rem;
+      text-decoration: none; transition: opacity 0.2s;
+    }
+    .plan-btn:hover { opacity: 0.85; }
+    .plan-btn.outline {
+      background: transparent; color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+
+    /* ── Screenshots ── */
+    .screens { display: flex; gap: 1.2rem; overflow-x: auto; padding-bottom: 1rem; }
+    .screen {
+      flex: 0 0 140px; height: 280px; border-radius: 20px;
+      background: linear-gradient(160deg, #f0e6ff, #e8d5f5);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; color: var(--accent);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer .footer-links { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--accent); }
+  </style>
 </head>
 <body>
-    <h1>Buddha Whisper</h1>
-    
-    <div class="lang-section">
-        <p>您的人生佛法智慧。</p>
-        <h3>支援與聯絡 (Support)</h3>
-        <p>如果您在使用 App 時遇到任何問題或有任何建議，歡迎與我們聯繫：</p>
-    </div>
 
-    <hr>
+<!-- Nav -->
+<nav>
+  <a class="logo" href="/">
+    <span class="logo-icon">🪷</span>
+    Buddha Whisper
+  </a>
+  <div class="nav-links">
+    <a href="#features">功能</a>
+    <a href="#pricing">訂閱</a>
+    <a href="privacy.html">隱私政策</a>
+    <a href="terms.html">服務條款</a>
+    <a href="mailto:nickchiu@gmail.com">聯絡我們</a>
+  </div>
+</nav>
 
-    <div class="lang-section">
-        <p>Your Wisdom of Life and Buddhism.</p>
-        <h3>Support & Contact</h3>
-        <p>If you encounter any issues or have any suggestions, please feel free to contact us:</p>
-    </div>
+<!-- Hero -->
+<div class="hero">
+  <div class="app-icon">🪷</div>
+  <div class="badge-row">
+    <span class="badge">iOS App</span>
+    <span class="badge">繁體中文</span>
+    <span class="badge">English</span>
+  </div>
+  <h1>每日一句，開啟智慧</h1>
+  <p class="hero-sub">Buddha Whisper 每天為您送上佛法智慧語錄，搭配精美背景，靜心片刻，找到生命的方向。</p>
+  <div class="btn-row">
+    <a href="https://apps.apple.com/app/buddha-whisper" class="btn-primary">📱 App Store 下載</a>
+    <a href="#pricing" class="btn-secondary">訂閱方案</a>
+  </div>
+</div>
 
-    <a href="mailto:nickchiu@gmail.com" class="contact-btn">Email Support / 聯繫技術支援</a>
-    
-    <div class="footer">
-        <a href="privacy.html">Privacy Policy / 隱私權政策</a>
+<!-- Features -->
+<section id="features">
+  <p class="section-label">Features</p>
+  <h2 class="section-title">為什麼選擇 Buddha Whisper</h2>
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">📿</div>
+      <h3>每日智慧語錄</h3>
+      <p>精選佛經語錄每日推送，中英雙語對照，隨時隨地靜心閱讀。</p>
     </div>
+    <div class="feature-card">
+      <div class="feature-icon">🖼️</div>
+      <h3>精美背景圖庫</h3>
+      <p>超過 32 張禪意背景，每日輪換，讓每一句話都更加雋永。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔔</div>
+      <h3>每日推播提醒</h3>
+      <p>設定每天提醒時間，無論多忙碌，都不錯過一日的心靈滋養。</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔒</div>
+      <h3>完全離線運作</h3>
+      <p>不收集任何個人資料，所有內容儲存於本機，保護您的隱私。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<div class="pricing-wrap" id="pricing">
+  <div style="max-width:880px; margin:0 auto;">
+    <p class="section-label" style="text-align:center;">Subscription</p>
+    <h2 class="section-title">訂閱方案</h2>
+    <div class="pricing">
+
+      <div class="price-card">
+        <div class="plan-name">月訂閱</div>
+        <div class="plan-price">NT$60 <span>/月</span></div>
+        <div class="plan-period">每月自動續訂</div>
+        <ul class="plan-features">
+          <li>完整語錄解鎖</li>
+          <li>全背景圖庫</li>
+          <li>每日推播提醒</li>
+        </ul>
+        <a href="#" class="plan-btn outline">選擇月訂閱</a>
+      </div>
+
+      <div class="price-card popular">
+        <div class="popular-tag">最優惠</div>
+        <div class="plan-name">年訂閱</div>
+        <div class="plan-price">NT$480 <span>/年</span></div>
+        <div class="plan-period">每年自動續訂，省 33%</div>
+        <ul class="plan-features">
+          <li>完整語錄解鎖</li>
+          <li>全背景圖庫</li>
+          <li>每日推播提醒</li>
+          <li>優先新功能搶先體驗</li>
+        </ul>
+        <a href="#" class="plan-btn">選擇年訂閱</a>
+      </div>
+
+    </div>
+    <p style="text-align:center; color:var(--muted); font-size:0.8rem; margin-top:1.5rem;">
+      透過 App Store 訂閱管理 · 可隨時取消 · 支援家庭共享
+    </p>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-links">
+    <a href="terms.html">服務條款</a>
+    <a href="privacy.html">隱私政策</a>
+    <a href="pay_success.html" style="display:none;"></a>
+    <a href="pay_fail.html" style="display:none;"></a>
+    <a href="mailto:nickchiu@gmail.com">客服信箱</a>
+  </div>
+  <p>© 2026 Buddha Whisper. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
